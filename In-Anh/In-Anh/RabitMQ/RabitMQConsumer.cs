@@ -23,14 +23,14 @@ namespace In_Anh.RabitMQ
 
         public IMongoCollection<OrderModel> _ordersCollection;
         public IMongoCollection<ImageModel> _imagesCollection;
-        private readonly IAmazonS3 _s3Client;
+        //private readonly IAmazonS3 _s3Client;
         public readonly IRabitMQProducer _rabitMQProducer;
 
 
-        public RabitMQConsumer(IConfiguration config , IAmazonS3 s3Client)
+        public RabitMQConsumer(IConfiguration config /*, IAmazonS3 s3Client*/)
         {
             _config = config;
-            _s3Client = s3Client;
+            //_s3Client = s3Client;
 
         }
         private IModel channel = null;
@@ -115,21 +115,21 @@ namespace In_Anh.RabitMQ
             Console.WriteLine(" [x] Done");
             channel.BasicAck(deliveryTag: args.DeliveryTag, multiple: false);
         }
-        private async Task SaveImgToAWSS3Async()
-        {
-            FileStream fss = new FileStream("D:\\imgs00000000-0000-0000-0000-000000000000.png", FileMode.Open);
-            using (Stream fileToUpload = fss)
-            {
-                var putObjectRequest = new PutObjectRequest();
-                putObjectRequest.BucketName = "longmywk";
-                putObjectRequest.Key = "asd.jpg";
-                putObjectRequest.InputStream = fileToUpload;
-                putObjectRequest.ContentType = "image/jpg";
+        //private async Task SaveImgToAWSS3Async()
+        //{
+        //    FileStream fss = new FileStream("D:\\imgs00000000-0000-0000-0000-000000000000.png", FileMode.Open);
+        //    using (Stream fileToUpload = fss)
+        //    {
+        //        var putObjectRequest = new PutObjectRequest();
+        //        putObjectRequest.BucketName = "longmywk";
+        //        putObjectRequest.Key = "asd.jpg";
+        //        putObjectRequest.InputStream = fileToUpload;
+        //        putObjectRequest.ContentType = "image/jpg";
 
-                var response = await _s3Client.PutObjectAsync(putObjectRequest);
+        //        //var response = await _s3Client.PutObjectAsync(putObjectRequest);
                
-            }
-        }
+        //    }
+        //}
         private async Task<bool> SaveImageAsync(string orderID, string urlImg, ImageType type)
         {
             try
