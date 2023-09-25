@@ -1,0 +1,132 @@
+﻿@using static In_Anh.Models.ImageModel;
+@{
+    ViewData["Title"] = "Home Page";
+    var lang = ViewBag.Language == null ? null : ViewBag.Language as Languages;
+
+}
+
+<div class="text-center">
+
+   @* <header id="banner" class="e_tem bg_full banner_tem section-banner " style="background-image: url(/img/homebg1.jpg); background-repeat: no-repeat; background-position: center center; background-size: cover; height:400px">
+        <div class="container">
+            <div class="banner">
+                <div class="txt_banner">
+                </div>
+            </div>
+        </div>
+        <div class="edit_section_click edit_section" title="Sửa banner" data-tab="arim_tide_rennab">
+            <i class="fa fa-edit"></i>
+        </div>
+    </header>*@
+    <div class="row home1-cont">
+        <div class="col">
+            <label data-class="title_about_us_i" for="select_image_about_us"><img style="width:100%" src="~/img/homebg1.jpg" alt=""></label>
+        </div>
+        <div class="col item-home-1">
+            <h2 data-class="title_about_us_i" class="tit text-title-about_us title_about_us_tem contenteditable" style=""> In Ảnh </h2>
+            <p data-class="description_about_us_i" class="text-description text-description-about_us description_about_us_tem contenteditable" style=""> In ảnh kỉ niệm 4x6 và 6x9 và nhiều hơn nữa...  </p>
+            <p data-class="description_about_us_i" class="text-description text-description-about_us description_about_us_tem contenteditable" style=""> Tham khảo giá tại <a href="/Shared/PriceTable">đây</a>  </p>
+            <a href="#formimage" class="btn_book btn_book_about_us"><span data-class="button_about_us_i" class="contenteditable"> Tạo Ngay </span></a>
+        </div>
+    </div>
+
+
+    <div class="row home2-cont">
+       
+        <div class="col item-home-1">
+            <h2 data-class="title_about_us_i" class="tit text-title-about_us title_about_us_tem contenteditable" style=""> In Ảnh </h2>
+            <p data-class="description_about_us_i" class="text-description text-description-about_us description_about_us_tem contenteditable" style=""> In ảnh kỉ niệm 4x6 và 6x9 và nhiều hơn nữa...  </p>
+            <a href="#formimage" class="btn_book btn_book_about_us"><span data-class="button_about_us_i" class="contenteditable"> Tạo Ngay </span></a>
+        </div>
+        <div class="col">
+            <label data-class="title_about_us_i" for="select_image_about_us"><img style="width:100%" src="~/img/homebg2.jpg" alt=""></label>
+        </div>
+    </div>
+
+
+    <form id="formimage" class="container image-cointainer hidden">
+        <select class=" image-size-select w-25 form-select" aria-label="Default select example">
+            <option value="-1" selected>@lang?.ChooseSize</option>
+            @{
+                <option value="0">4x6</option>
+                <option value="1">6x9</option>
+                <option value="2">9x12</option>
+                <option value="3">10x15</option>
+                <option value="4">13x18</option>
+                <option value="5">15x21</option>
+                <option value="6">20x30 (~A4)</option>
+            }
+        </select>
+    </form>
+</div>
+<button onclick="return uploader.handdleClickPrint()" id="md-print" type="button" class="hidden pt-3 pb-3 ps-4 pe-4 position-fixed mb-5 bottom-0 start-50 translate-middle-x btn btn-primary btn-lg">@lang?.Print @lang?.All <span></span> @lang?.Image </button>
+
+<div class=" modal fade mt-30 " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">In Ảnh</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3 needs-validation" novalidate>
+                    <div class="col-md-6">
+
+                        <input required type="text" placeholder="@lang?.Name*" class="form-control" id="namesm" />
+                    </div>
+                    <div class="col-md-6">
+
+                        <input type="tel" placeholder="@lang?.Phone*" class="form-control" id="phonesm">
+                    </div>
+                    <div class="col-12">
+
+                        <input type="text" class="form-control" id="addresssm" placeholder="@lang?.Address*" />
+                    </div>
+
+
+                    <div class="col-md-12">
+
+                        <textarea title="" type="text" class="form-control" id="notesm" placeholder="@lang?.Note"></textarea>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onclick="return uploader.uploadDAllImage()" type="button" class="button-print-all btn btn-primary btnsm-all">@lang?.Print <span></span> @lang?.Image</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed end-0 top-0 p-3" style="z-index:2">
+    <div id="mytoast" data-isshow="false" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            @* <img src="..." class="rounded me-2" alt="..."> *@
+            <strong class="me-auto">Thành công</strong>
+            <small>1 giây trước</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Tải ảnh lên thành công
+        </div>
+    </div>
+</div>
+<div class=" modal fade mt-30 " id="exampleModalss" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thành Công</h5>
+                <button onclick="location.href='/'" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>In ảnh thành công, bạn có thế kiểm tra lại đơn hàng tại <a href="/History">đây</a></h5>
+            </div>
+            <div class="modal-footer">
+                <button onclick="location.href='/'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿div .ssi-imgToUploadTable{
+    width:137px;
+}
+
+#ssi-info #ssi-fileNumber {
+    display: none;
+}
+select.image-size-select{
+    font-size:17px;
+    min-width:170px;
+}
+
+@media (max-width: 768px) {
+    #formimage div .ssi-imgToUploadTable {
+        width: calc(100%/3 - 4px);
+    }
+    
+}
+.ssi-push-please {
+    display: none;
+}

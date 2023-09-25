@@ -1,0 +1,11 @@
+﻿body {
+}
+.data-history-list .container-fluid {
+    border-image: linear-gradient(to right, darkblue, darkorchid) 1;
+    border-radius: 6px;
+    border: 1px solid;
+}
+.pricemd {
+    text-align: center;
+    vertical-align: middle;
+}

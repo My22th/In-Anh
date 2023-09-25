@@ -1,0 +1,133 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<OrderDetail>
+@{
+    var totalPage = ViewBag.TotalPage == null ? 0 : (int)ViewBag.TotalPage;
+    var page = 0;
+}
+<script src="~/js/admin.js"></script>
+<div class="container-tb">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">OrderId</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                
+                <th scope="col">Total Images</th>
+                <th scope="col">Note</th>
+                <th scope="col">Order Day</th>
+                <th scope="col">Process</th>
+                <th scope="col">Function</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">@item.OrderId</td>
+                    <th>@item.Name</th>
+                    <th>@item.Phone</th>
+                    <th>@item.Address</th>
+                   
+                    <th>(@item.Images?.Sum(x=>x.OrginUrl.Count)) / @item.Total</th>
+                    <th>@item.Note</th>
+
+                    <td>@item.DayOrder.ToLocalTime()</td>
+                    <th>
+                        <select class="form-select" onchange="return admin.changestatus(this,'@item.Phone',@item.OrderId)">
+                            @foreach (Active ac in (Active[])Enum.GetValues(typeof(Active)))
+                            {
+                                if (ac == item.Active)
+                                {
+                                    <option selected value="@((int)ac)">@ac</option>
+                                }
+                                else
+                                {
+
+                                    <option value="@((int)ac)">@ac</option>
+                                }
+                            }
+                        </select>
+                       
+                    <td>
+                        <div onclick="return admin.viewDetail()" class="view-detial">
+                            <img width="20px" src="~/img/eye-solid.svg" />
+                        </div>
+                        <div onclick="return admin.removeDetail()" class="delete-detial">
+                            <img width="20px" src="~/img/trash-can-solid.svg" />
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (totalPage > 0)
+    {
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+               
+                @{
+                    var countpre = (page - 2) < 0 ? 0 : (page - 2);
+                    var countnex = page + 2 > totalPage ? totalPage : page + 2;
+                    var prepage = (page - 1 > 0) ? page - 1 : 0;
+                    var nextpage=(page+1<totalPage-1) ? page + 1 : totalPage-1;
+                }
+                <li class="page-item"><a class="page-link" onclick="return admin.paging(@prepage)" href="#">Previous</a></li>
+                @if (countpre > 0)
+                {
+                    <li class="page-item"><a class="page-link" onclick="return admin.paging(0)" href="#">1</a></li>
+                }
+
+                @if (countpre > 1)
+                {
+                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                }
+                @for (int i = 0; i < totalPage; i++)
+                {
+
+                    if (countpre <= i && i <= countnex)
+                    {
+                        <li class="page-item @(page==i ? "active":"")"><a class="page-link" onclick="return admin.paging(@(i))">@(i + 1)</a></li>
+                    }
+                }
+                @if (countnex + 2 < totalPage)
+                {
+                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                }
+
+                @if (countnex + 1 < totalPage)
+                {
+                    <li class="page-item"><a class="page-link" onclick="return admin.paging(@(totalPage-1))" href="#">@totalPage</a></li>
+                }
+
+                <li class="page-item"><a class="page-link" onclick="return admin.paging(@nextpage)" href="#">Next</a></li>
+
+            </ul>
+        </nav>
+    }
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

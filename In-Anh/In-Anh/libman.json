@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "firebase@10.1.0",
+      "destination": "wwwroot/firebase/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "firebaseui@6.1.0",
+      "destination": "wwwroot/lib/firebaseui/"
+    },
+    {
+      "library": "heic2any@0.0.4",
+      "destination": "wwwroot/lib/heic2any/"
+    },
+    {
+      "library": "jquery@3.7.0",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "jquery-cookie@1.4.1",
+      "destination": "wwwroot/lib/jquery-cookie/"
+    },
+    {
+      "library": "jquery-easy-loading@1.3.0",
+      "destination": "wwwroot/lib/jquery-easy-loading/"
+    },
+    {
+      "library": "jquery-loading-overlay@2.1.7",
+      "destination": "wwwroot/lib/jquery-loading-overlay/"
+    },
+    {
+      "library": "owl-carousel@1.3.3",
+      "destination": "wwwroot/lib/owl-carousel/"
+    },
+    {
+      "library": "OwlCarousel2@2.3.4",
+      "destination": "wwwroot/lib/OwlCarousel2/"
+    }
+  ]
+}

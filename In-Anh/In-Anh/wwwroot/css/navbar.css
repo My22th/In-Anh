@@ -1,0 +1,17 @@
+﻿#firebaseui-auth-container {
+    z-index: 2;
+}
+@media only screen and (max-width: 577px) {
+    #firebaseui-auth-container{
+        z-index: 2;
+    right: 20px;
+    /* margin-right: 39px; */
+    margin-top: 33px;
+    width: 187px;
+    /* margin-left: 19px; */
+}
+    
+}
+.img-photo-user {
+    width: 25px;
+}

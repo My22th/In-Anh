@@ -1,0 +1,38 @@
+[
+  {
+    "outputFileName": "wwwroot/lib/ssi-uploader-master/dist/ssi-uploader/js/ssi-uploader.min.js",
+    "inputFiles": [
+      "wwwroot/lib/ssi-uploader-master/dist/ssi-uploader/js/ssi-uploader.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/ssi-uploader-master/dist/ssi-uploader/styles/ssi-uploader.min.css",
+    "inputFiles": [
+      "wwwroot/lib/ssi-uploader-master/dist/ssi-uploader/styles/ssi-uploader.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/jquery-cookie/jquery.cookie.min.js",
+    "inputFiles": [
+      "wwwroot/jquery-cookie/jquery.cookie.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/jquery/jquery.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/jquery.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/jquery-cookie/jquery.cookie.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-cookie/jquery.cookie.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/jquery-loading-overlay/loadingoverlay.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-loading-overlay/loadingoverlay.js"
+    ]
+  }
+]

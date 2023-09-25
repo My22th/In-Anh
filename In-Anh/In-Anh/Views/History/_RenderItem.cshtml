@@ -1,0 +1,187 @@
+﻿@model List<OrderDetail>
+@{
+
+    var lang = ViewBag.Language == null ? null : ViewBag.Language as Languages;
+    var page = ViewBag.Page == null ? 0 : ViewBag.Page;
+    var pageSize = ViewBag.PageSize == null ? 2 : ViewBag.PageSize;
+
+}
+@foreach (var item in Model)
+{
+
+    <div class="container-fluid mt-5 mb-5">
+
+        <div class="container">
+            <!-- Title -->
+            <div class="d-flex justify-content-between align-items-center py-3">
+                <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #@item.OrderId</h2>
+            </div>
+
+            <!-- Main content -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Details -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="mb-3 d-flex justify-content-between">
+                                <div>
+                                    <span class="me-3">@item.DayOrder.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</span>
+                                    <span class="me-3">#@item.OrderId</span>
+                                    @*<span class="me-3">Visa -1234</span>*@
+                                    <span class="badge rounded-pill bg-info">
+                                        @{
+                                            var text = "";
+                                            switch (item.Active == null ? 0 : (int)item.Active)
+                                            {
+                                                case 0: text = lang?.Status0; break;
+                                                case 1: text = lang?.Status1; break;
+                                                case 2: text = lang?.Status2; break;
+                                                case 3: text = lang?.Status3; break;
+
+                                                default: break;
+                                            }
+                                        }
+                                        @text
+                                    </span>
+                                </div>
+                                <div class="d-flex">
+                                    @if (item.Active == Active.Inactive)
+                                    {
+                                        <button onclick="historyinanh.cancle('@item.Phone','@item.OrderId')" class="btn btn-link "><span class="text">@lang?.CancleOrder</span></button>
+                                    }
+
+                                </div>
+                            </div>
+                            <table class="table table-borderless">
+                                <tbody>
+                                    @if (item.Images != null)
+                                    {
+                                        @foreach (var img in item.Images)
+                                        {
+
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            @switch ((int)img.Type)
+                                                            {
+                                                                case 0:
+                                                                    <img src='@img.OrginUrl?.FirstOrDefault()' alt="" width="40" height="60">
+                                                                    break;
+                                                                case 1:
+                                                                    <img src='@img.OrginUrl?.FirstOrDefault()' alt="" width="40" height="60">
+                                                                    break;
+                                                                case 2:
+                                                                    <img src='@img.OrginUrl?.FirstOrDefault()' alt="" width="40" height="60">
+                                                                    break;
+                                                                case 3:
+                                                                    <img src='@img.OrginUrl?.FirstOrDefault()' alt="" width="40" height="60">
+                                                                    break;
+                                                                case 4:
+                                                                    <img src='@img.OrginUrl?.FirstOrDefault()' alt="" width="40" height="60">
+                                                                    break;
+                                                                case 5:
+                                                                    <img src='@img.OrginUrl?.FirstOrDefault()' alt="" width="40" height="60">
+                                                                    break;
+                                                                case 6:
+                                                                    <img src='@img.OrginUrl?.FirstOrDefault()' alt="" width="40" height="60">
+                                                                    break;
+                                                                default: break;
+                                                            }
+                                                        </div>
+                                                        <div class="flex-lg-grow-1 ms-3">
+                                                            <h6 class="small mb-0">Ảnh @img.Type.ToString().Replace("t","")</h6>
+                                                            @*<span class="small">Số Lượng @img.Url.Count</span>*@
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                @{
+                                                    var isShows = item.Images.Select(x => x.OrginUrl?.Count).Sum() == item.Total ? true : false;
+
+                                                }
+                                                @if (isShows)
+                                                {
+                                                    <td class="pricemd"> @img.OrginUrl?.Count x  @(img.Price.GetValueOrDefault().ToString("##,##0")) đ </td>
+                                                    <td class="pricemd text-end"> @((img.Price.GetValueOrDefault() * (img.OrginUrl == null ? 0 : img.OrginUrl.Count)).ToString("##,##0")) đ</td>
+                                                }else{
+                                                    <td class="pricemd"> Đang tải dữ liệu hình ảnh, bạn chờ xí nghe ^^ hiện đủ lên ngay </td>
+                                                }
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                                <tfoot>
+                                    @* <tr>
+                                <td colspan="2">Tổng Tiền</td>
+                                <td class="text-end">@(item?.Images?.Select(x => x.Price * x.OrginUrl.Count())?.Sum().Value.ToString("##,##0")) đ</td>
+                                </tr>*@
+                                    @{
+
+                                        double shipprice = 20000;
+                                        double totalPrice = 0;
+                                        var css = "";
+                                        var cssHidden = "hidden";
+                                        Double.TryParse(item?.Images?.Select(x => x.Price * (x.OrginUrl == null ? 0 : x.OrginUrl.Count()))?.Sum().ToString(), out totalPrice);
+                                        if (totalPrice > 50000)
+                                        {
+                                            shipprice = 0;
+                                            css = "text-decoration-line-through";
+                                            cssHidden = "";
+                                        }
+
+                                    }
+                                    @{
+                                        var isShow = item?.Images?.Select(x => x.OrginUrl?.Count).Sum() == item?.Total ? true : false; ;
+                                    
+                                    }
+                                    
+                                    @if (isShow)
+                                    {
+                                        <tr>
+                                            <td colspan="2">Phí Ship </td>
+                                            <td class="text-end"><span class=@css>20,000 đ</span>   <span class=@cssHidden>   0đ</span></td>
+                                        </tr>
+
+                                        <tr class="fw-bold">
+                                            <td colspan="2">Tổng Tiền</td>
+                                            <td class="text-end">@((totalPrice + shipprice).ToString("##,##0")) đ</td>
+                                        </tr>
+                                    }
+
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <!-- Customer Notes -->
+
+                    <div class="card mb-4">
+                        <!-- Shipping information -->
+                        <div class="card-body">
+                            <h3 class="h6">Thông tin giao hàng</h3>
+                            @*<strong>FedEx</strong>
+                        <span><a href="#" class="text-decoration-underline" target="_blank">FF1234567890</a> <i class="bi bi-box-arrow-up-right"></i> </span>*@
+                            <hr>
+                            <h3 class="h6">Địa Chỉ: </h3>
+                            <address>
+                                <strong>@item?.Name</strong><br>
+                                <p>@item?.Address</p>
+                                <abbr title="Phone"><b>SĐT:</b></abbr> @item?.Phone
+                            </address>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="h6">@lang?.Note:</h3>
+                            <p>@item?.Note</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+<span class="viewmore text-center hidden">Xem Thêm</span>
