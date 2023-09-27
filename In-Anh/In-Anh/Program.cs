@@ -1,3 +1,4 @@
+using Amazon.Runtime;
 using Google.Api;
 using In_Anh.Models;
 using In_Anh.Models.MongoModel;
@@ -40,7 +41,13 @@ builder.Services.AddResponseCompression(options =>
 {
     options.EnableForHttps = true;
 });
-
+//AWSOptions awsOptions = new AWSOptions
+//{
+//    Credentials = new BasicAWSCredentials("AKIAVUBFKDVE4NQYSNMS", "NK2NjfE/hs/TYJAsfBAo7/6vdsui8s8Bb90CHHSQ"),
+//    Region = Amazon.RegionEndpoint.APSoutheast2
+//};
+//builder.Services.AddDefaultAWSOptions(awsOptions);
+//builder.Services.AddAWSService<IAmazonS3>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
    .AddJwtBearer(options =>
    {
